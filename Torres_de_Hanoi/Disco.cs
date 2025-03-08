@@ -8,11 +8,17 @@ namespace Torres_de_Hanoi
 {
     class Disco
     {
-        /*TODO: 
-        Decidir tipo de Valor
+        // Representa el tamaño o el valor del disco
         public int Valor { get; set; }
-        public String Valor { get; set; }
-        */
 
+        public Disco(int valor)
+        {
+            Valor = valor;
+        }
+
+        public override string ToString()
+        {
+            return $"Disco de tamaño {Valor}";
+        }
     }
 }
