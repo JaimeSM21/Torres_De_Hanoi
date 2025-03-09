@@ -8,58 +8,43 @@ namespace Torres_de_Hanoi
 {
     class Pila
     {
-        // Propiedad que representa la cantidad de discos en el palo
-        public int Size
+        private Stack<Disco> elementos;
+        public string Nombre { get; private set; }
+
+        // 构造函数，初始化柱子, Constructor, inicializa la Pila.
+        public Pila(string nombre)
         {
-            get { return Elementos.Count; }
+            this.Nombre = nombre;
+            this.elementos = new Stack<Disco>();
         }
 
-        // Propiedad que representa el disco que está en la parte superior del palo.
-        // Si la pila está vacía, devuelve null.
-        public Disco Top
+        //  压入（放入）圆盘, Presionar (poner) en el disco
+        public void Push(Disco d)
         {
-            get
+            if (elementos.Count > 0 && elementos.Peek().Tamano < d.Tamano)
             {
-                if (isEmpty())
-                    return null;
-                return Elementos[Elementos.Count - 1];
+                throw new InvalidOperationException($"No se puede colocar el disco {d.Tamano} en {Nombre}, porque el disco superior es más pequeño.");
             }
+            elementos.Push(d);
         }
 
-        // Lista que almacena los discos presentes en el palo.
-        public List<Disco> Elementos { get; set; }
-
-        // Constructor: inicializa la lista de discos.
-        public Pila()
+        //  弹出（取出）圆盘, Expulsar (quitar) el disco
+        public Disco Pop()
         {
-            Elementos = new List<Disco>();
+            if (IsEmpty()) throw new InvalidOperationException($"No se puede quitar de {Nombre}, está vacía.");
+            return elementos.Pop();
         }
 
-        // Método que permite colocar un disco en la pila.
-        public void push(Disco d)
+        //  获取顶部圆盘, Consigue el disco superior
+        public Disco Top()
         {
-            // Aquí se podría agregar lógica para validar el movimiento en el juego,
-            // por ejemplo, que el disco que se coloca sea menor que el disco actual en Top.
-            Elementos.Add(d);
+            return elementos.Count > 0 ? elementos.Peek() : null;
         }
 
-        // Método que extrae el disco que se encuentra en la parte superior de la pila.
-        // Devuelve el disco extraído o null si la pila está vacía.
-        public Disco pop()
+        //  检查柱子是否为空, Comprueba si la columna está vacía
+        public bool IsEmpty()
         {
-            if (isEmpty())
-                return null;
-
-            // Se obtiene el último disco y se elimina de la lista.
-            Disco discoExtraido = Elementos[Elementos.Count - 1];
-            Elementos.RemoveAt(Elementos.Count - 1);
-            return discoExtraido;
-        }
-
-        // Método que verifica si la pila está vacía.
-        public bool isEmpty()
-        {
-            return Elementos.Count == 0;
+            return elementos.Count == 0;
         }
     }
 }

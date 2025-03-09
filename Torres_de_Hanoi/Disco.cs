@@ -8,17 +8,18 @@ namespace Torres_de_Hanoi
 {
     class Disco
     {
-        // Representa el tamaño o el valor del disco
-        public int Valor { get; set; }
+        public int Tamano { get; private set; }
 
-        public Disco(int valor)
+        //  构造函数：创建圆盘时指定大小, Constructor: especifique el tamaño al crear el disco
+        public Disco(int tamano)
         {
-            Valor = valor;
+            this.Tamano = tamano;
         }
 
+        //  方便打印圆盘信息, Imprima cómodamente la información del disco
         public override string ToString()
         {
-            return $"Disco de tamaño {Valor}";
+            return $"[{Tamano}]";
         }
     }
 }
